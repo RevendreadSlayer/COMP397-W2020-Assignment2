@@ -1,14 +1,20 @@
 var objects;
 (function (objects) {
     class Vector2 {
-        //Constructor
-        constructor(x = 0, y = 0) {
+        constructor(x = 0, y = 0, displayObject) {
             //Private instance members
             this._x = 0;
             this._y = 0;
             this._magnitude = 0;
             this._sqrMagnitude = 0;
-            this, this.magnitude = this._computeMagnitude();
+            this._x = 0;
+            this._y = 0;
+            this._magnitude = 0;
+            this._sqrMagnitude = 0;
+            this.magnitude = this._computeMagnitude();
+            if (displayObject != undefined) {
+                this._displayObject = displayObject;
+            }
         }
         //Public properties
         get x() {
@@ -18,6 +24,9 @@ var objects;
             this._x = newX;
             this.sqrMagnitude = this._computeSqrMagnitude();
             this.magnitude = this._computeMagnitude();
+            if (this._displayObject != undefined) {
+                this._displayObject.x = this._x;
+            }
         }
         get y() {
             return this._y;
@@ -26,6 +35,9 @@ var objects;
             this._y = newY;
             this.sqrMagnitude = this._computeSqrMagnitude();
             this.magnitude = this._computeMagnitude();
+            if (this._displayObject != undefined) {
+                this._displayObject.y = this._y;
+            }
         }
         get magnitude() {
             return this._magnitude;

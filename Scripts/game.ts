@@ -63,6 +63,7 @@
             }
         );
 
+        //Vector2 testing
         let vector = new objects.Vector2(300, 400);
         console.log(vector.magnitude);
         console.log(vector.normalized());
