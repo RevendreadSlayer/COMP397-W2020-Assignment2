@@ -1,6 +1,7 @@
 var objects;
 (function (objects) {
     class Vector2 {
+        //Constructor
         constructor(x = 0, y = 0, displayObject) {
             //Private instance members
             this._x = 0;
@@ -11,10 +12,11 @@ var objects;
             this._y = 0;
             this._magnitude = 0;
             this._sqrMagnitude = 0;
-            this.magnitude = this._computeMagnitude();
             if (displayObject != undefined) {
                 this._displayObject = displayObject;
             }
+            this.x = x;
+            this.y = y;
         }
         //Public properties
         get x() {
@@ -126,6 +128,16 @@ var objects;
             let diffXs = P2.x - P1.x;
             let diffYs = P2.y - P1.y;
             return Math.sqrt((diffXs * diffXs) + (diffYs * diffYs));
+        }
+        static add(lhs, rhs) {
+            let theXs = lhs.x + rhs.x;
+            let theYs = lhs.y + rhs.y;
+            return new Vector2(theXs, theYs);
+        }
+        static subtract(lhs, rhs) {
+            let theXs = lhs.x - rhs.x;
+            let theYs = lhs.y - rhs.y;
+            return new Vector2(theXs, theYs);
         }
     }
     objects.Vector2 = Vector2;

@@ -1,4 +1,16 @@
+body
+{
+    background-color:black;
+}
+
 #canvas
 {
+    background-color: white;
     border: 3px dotted black;
+}
+
+#mainContent
+{
+    width: 480px;
+    margin: 0 auto;
 }

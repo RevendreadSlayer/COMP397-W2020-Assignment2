@@ -63,7 +63,7 @@ module objects
             this._sqrMagnitude = newSqrMagnitude;
         }
         //Constructor
-        constructor(x?:number, y?:number, displayObject?:createjs.DisplayObject)
+       
         
         constructor(x:number = 0,y:number = 0, displayObject?: createjs.DisplayObject)
         {
@@ -71,12 +71,15 @@ module objects
             this._y=0;
             this._magnitude=0;
             this._sqrMagnitude = 0;
-            this.magnitude = this._computeMagnitude();
+            
             
             if(displayObject != undefined)
             {
                 this._displayObject =displayObject;
             }
+
+            this.x=x;
+            this.y=y;
         }
 
         //Private methods
@@ -93,7 +96,7 @@ module objects
         public add(rhs:Vector2):void
         {
             this.x += rhs.x;
-            this.y +=rhs.y;
+            this.y += rhs.y;
         }
 
         public subtract(rhs:Vector2):void
@@ -184,6 +187,20 @@ module objects
             let diffXs= P2.x - P1.x;
             let diffYs= P2.y - P1.y;
             return Math.sqrt((diffXs * diffXs) + (diffYs * diffYs));
+        }
+
+        public static add(lhs:Vector2, rhs:Vector2):Vector2
+        {
+            let theXs = lhs.x + rhs.x;
+            let theYs = lhs.y + rhs.y;
+            return new Vector2(theXs, theYs);
+        }
+
+        public static subtract(lhs:Vector2, rhs:Vector2):Vector2
+        {
+            let theXs = lhs.x - rhs.x;
+            let theYs = lhs.y - rhs.y;
+            return new Vector2(theXs, theYs);
         }
     }
 }

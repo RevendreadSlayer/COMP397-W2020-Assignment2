@@ -8,7 +8,9 @@ module objects
         private _halfWidth:number;
         private _halfHeight:number;
         private _position:Vector2;
+        private _velocity:Vector2;
         private _isCollidiong:boolean;
+        private _isCentered:boolean;
 
 
 
@@ -57,39 +59,63 @@ module objects
             this.y=newPosition.y;
         }
 
-        get isCollding():boolean
+        get velocity():Vector2
+        {
+            return this._velocity;
+        }
+
+        set velocity(newVelocity:Vector2)
+        {
+            this._velocity =newVelocity;
+        }
+
+        get isColliding():boolean
         {
             return this._isCollidiong;
         }
-        set isCollding(newState:boolean)
+
+        set isColliding(newState:boolean)
         {
             this._isCollidiong = newState;
         }
+
+        get isCentered():boolean
+        {
+            return this._isCentered;
+        }
+
+        set isCentered(newState:boolean)
+        {
+            this._isCentered =newState;
+            if(newState)
+            {
+                this._centerGameObject();
+            }
+        }
+
         //Constructor
-        constructor(imageString:string = "./Assets/images/Player.png",
-        x:number = 0, y:number = 0, centered:boolean)
+        constructor(imagePath:Object = config.Game.ASSETS.getResult("Player"),
+        x:number = 0, y:number = 0, centered:boolean = false)
         {
             
-            super(imageString);
+            super(imagePath);
             //initialization
             this._width = 0;
             this._height = 0;
             this._halfWidth = 0;
             this._halfHeight = 0;
             this._position = new Vector2(0,0,this);
+            this._velocity = new Vector2(0,0);
             this._isCollidiong =false;
+            this._isCentered = false;
 
-            this.image.addEventListener("load",() => {
-                this.width = this.getBounds().width;
-                this.height = this.getBounds().height;
-                if(centered)
-                {
-                    this.regX = this.halfWidth;
-                    this.regY = this.halfHeight;
-                    
-                }
-
-            });
+            //this.image.addEventListener("load",() => {
+            this.width = this.getBounds().width;
+            this.height = this.getBounds().height;
+                
+            this.isCentered = centered;
+            
+            //});
 
             this.position =  new Vector2(x,y,this);
 
@@ -103,6 +129,12 @@ module objects
         private _computeHalfHeight():number
         {
             return this.height * 0.5;
+        }
+
+        private _centerGameObject():void
+        {
+            this.regX = this.halfWidth;
+            this.regY = this.halfHeight;
         }
 
         protected abstract _checkBounds():void;

@@ -1,24 +1,25 @@
 module objects
 {
-    export class Button extends createjs.Bitmap
+    export class Button extends GameObject
     {
-        constructor(imagePath:string,
-            x:number=0,
-            y:number=0,
+        
+        constructor(imagePath:Object = config.Game.ASSETS.getResult("button")
+            ,x:number=0,y:number=0,
             isCentered:boolean = false)
             {
-                console.log("Imageload");
                 super(imagePath,x,y,isCentered);
-                this.on("mouseover",this.MouseOver);
-                this.on("mouseout",this.MouseOut);
-
-                }
-                this.x=x;
-                this.y=y;
 
                 this.on("mouseover",this.MouseOver);
                 this.on("mouseout",this.MouseOut);
+
+                this.Start();
             }
+
+            protected _checkBounds(): void {
+                
+            }
+
+
 
             MouseOver():void
             {
@@ -28,6 +29,17 @@ module objects
             MouseOut():void
             {
                 this.alpha=1.0;
+            }
+
+            
+            public Start(): void {
+                this.name = "Button";
+            }
+            public Update(): void {
+                
+            }
+            public Reset(): void {
+               
             }
     }
 }

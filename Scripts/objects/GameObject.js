@@ -2,23 +2,22 @@ var objects;
 (function (objects) {
     class GameObject extends createjs.Bitmap {
         //Constructor
-        constructor(imageString = "./Assets/images/Player.png", x = 0, y = 0, centered) {
-            super(imageString);
+        constructor(imagePath = config.Game.ASSETS.getResult("Player"), x = 0, y = 0, centered = false) {
+            super(imagePath);
             //initialization
             this._width = 0;
             this._height = 0;
             this._halfWidth = 0;
             this._halfHeight = 0;
             this._position = new objects.Vector2(0, 0, this);
+            this._velocity = new objects.Vector2(0, 0);
             this._isCollidiong = false;
-            this.image.addEventListener("load", () => {
-                this.width = this.getBounds().width;
-                this.height = this.getBounds().height;
-                if (centered) {
-                    this.regX = this.halfWidth;
-                    this.regY = this.halfHeight;
-                }
-            });
+            this._isCentered = false;
+            //this.image.addEventListener("load",() => {
+            this.width = this.getBounds().width;
+            this.height = this.getBounds().height;
+            this.isCentered = centered;
+            //});
             this.position = new objects.Vector2(x, y, this);
         }
         //Public properties
@@ -50,11 +49,26 @@ var objects;
             this.x = newPosition.x;
             this.y = newPosition.y;
         }
-        get isCollding() {
+        get velocity() {
+            return this._velocity;
+        }
+        set velocity(newVelocity) {
+            this._velocity = newVelocity;
+        }
+        get isColliding() {
             return this._isCollidiong;
         }
-        set isCollding(newState) {
+        set isColliding(newState) {
             this._isCollidiong = newState;
+        }
+        get isCentered() {
+            return this._isCentered;
+        }
+        set isCentered(newState) {
+            this._isCentered = newState;
+            if (newState) {
+                this._centerGameObject();
+            }
         }
         //Private methods
         _computeHalfWidth() {
@@ -62,6 +76,10 @@ var objects;
         }
         _computeHalfHeight() {
             return this.height * 0.5;
+        }
+        _centerGameObject() {
+            this.regX = this.halfWidth;
+            this.regY = this.halfHeight;
         }
     }
     objects.GameObject = GameObject;
