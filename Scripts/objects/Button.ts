@@ -8,12 +8,10 @@ module objects
             isCentered:boolean = false)
             {
                 console.log("Imageload");
-                super(imagePath);
-                if(isCentered)
-                {
-                    this.regX = this.getBounds().width *0.5;
-                    this.regY = this.getBounds().height*0.5;
-                    
+                super(imagePath,x,y,isCentered);
+                this.on("mouseover",this.MouseOver);
+                this.on("mouseout",this.MouseOut);
+
                 }
                 this.x=x;
                 this.y=y;
